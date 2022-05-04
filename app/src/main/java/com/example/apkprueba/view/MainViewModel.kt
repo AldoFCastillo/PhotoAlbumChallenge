@@ -2,52 +2,59 @@ package com.example.apkprueba.view
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.apkprueba.Model.Device
-import com.example.apkprueba.Model.DeviceDetails
+import com.example.apkprueba.Model.Album
+import com.example.apkprueba.Model.Photo
 import com.example.apkprueba.services.Repository
 import com.example.apkprueba.services.Resource
-import com.example.apkprueba.services.WebService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel(private val repository: Repository ): ViewModel() {
 
-    var devicesRequestResponse: MutableLiveData<Resource<ArrayList<Device>>> = MutableLiveData()
-    var deviceDetailsRequestResponse: MutableLiveData<Resource<DeviceDetails>> = MutableLiveData()
+    var albumsRequestResponse: MutableLiveData<Resource<ArrayList<Album>>> = MutableLiveData()
+    var photoRequestResponse: MutableLiveData<Resource<ArrayList<Photo>?>> = MutableLiveData()
+
+    private var selectedAlbumId: String?= null
 
 
-    fun requestDevices() {
-        devicesRequestResponse.postValue(Resource.Loading())
-        repository.requestDevices(object: Callback<ArrayList<Device>>{
+    fun requestAlbums() {
+        albumsRequestResponse.postValue(Resource.Loading())
+        repository.requestAlbums(object: Callback<ArrayList<Album>>{
             override fun onResponse(
-                call: Call<ArrayList<Device>>,
-                response: Response<ArrayList<Device>>
+                call: Call<ArrayList<Album>>,
+                response: Response<ArrayList<Album>>
             ) {
-                devicesRequestResponse.postValue(Resource.Success(response.body()!!))
+                albumsRequestResponse.postValue(Resource.Success(response.body()!!))
             }
 
-            override fun onFailure(call: Call<ArrayList<Device>>, t: Throwable) {
-                devicesRequestResponse.postValue(t.message?.let { Resource.Error(it) })
+            override fun onFailure(call: Call<ArrayList<Album>>, t: Throwable) {
+                albumsRequestResponse.postValue(t.message?.let { Resource.Error(it) })
             }
 
         })
     }
 
-    fun requestDeviceDetails(id: String) {
-        deviceDetailsRequestResponse.postValue(Resource.Loading())
-        repository.requestDeviceDetails(id.toInt(), object : Callback<DeviceDetails> {
+    fun requestAlbumPhotos(id: String) {
+        photoRequestResponse.postValue(Resource.Loading())
+        repository.requestPhotos(id.toInt(), object : Callback<ArrayList<Photo>> {
             override fun onResponse(
-                call: Call<DeviceDetails>,
-                response: Response<DeviceDetails>
+                call: Call<ArrayList<Photo>>,
+                response: Response<ArrayList<Photo>>
             ) {
-                deviceDetailsRequestResponse.postValue(Resource.Success(response.body()!!))
+                photoRequestResponse.postValue(Resource.Success(response.body()))
             }
 
-            override fun onFailure(call: Call<DeviceDetails>, t: Throwable) {
-                deviceDetailsRequestResponse.postValue(t.message?.let { Resource.Error(it) })
+            override fun onFailure(call: Call<ArrayList<Photo>>, t: Throwable) {
+                photoRequestResponse.postValue(t.message?.let { Resource.Error(it) })
             }
 
         })
     }
+
+    fun setSelectedAlbum(id: String){
+        this.selectedAlbumId = id
+    }
+
+    fun getSelectedAlbumId(): String? = this.selectedAlbumId
 }

@@ -2,18 +2,14 @@ package com.example.apkprueba.Model
 
 import com.google.gson.annotations.SerializedName
 
-data class Device (
-    @SerializedName("name")
-    val name : String?,
-    @SerializedName("installmentsTag")
-    val installmentsTag : String?,
-    @SerializedName("topTag")
-    val topTag : String?,
-    @SerializedName("mainImage")
-    val mainImage : MainImage?
-
+data class Album (
+    @SerializedName("userId")
+    val userId : Int?,
+    @SerializedName("id")
+    val id : Int?,
+    @SerializedName("title")
+    val title : String?,
     ) {
-    var id: String? = null
-    var urlList : ArrayList<String>? = null
-    var legalText: String? = null
+
+    var photos= arrayListOf<Photo>()
 }

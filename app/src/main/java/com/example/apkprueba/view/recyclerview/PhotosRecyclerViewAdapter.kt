@@ -1,16 +1,14 @@
 package com.example.apkprueba.view.recyclerview
 
-import android.telecom.Call
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.apkprueba.Model.Photo
-import com.example.apkprueba.R
 import com.example.apkprueba.databinding.CellPhotoBinding
 
-class DetailsRecyclerViewAdapter:
-    RecyclerView.Adapter<DetailsRecyclerViewAdapter.DetailsViewHolder>() {
+class PhotosRecyclerViewAdapter:
+    RecyclerView.Adapter<PhotosRecyclerViewAdapter.DetailsViewHolder>() {
 
     private var photoList: List<Photo>? = null
 
@@ -49,6 +47,8 @@ class DetailsRecyclerViewAdapter:
         fun bindView(photo: Photo) {
 
             with(binding){
+                cellTextViewName.text = photo.id.toString()
+                cellTextViewDescription.text = photo.title
                 Glide.with(itemView.context)
                     .load(photo.url)
                     .into(imageViewThumbnail)

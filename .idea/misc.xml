@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Admin/Downloads/ApkPrueba (1)/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/Downloads/ApkPrueba (1)/app/src/main/res/layout/cell_album.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Admin/Downloads/ApkPrueba (1)/app/src/main/res/layout/cell_details.xml" value="0.1" />
         <entry key="..\:/Users/Admin/Downloads/ApkPrueba (1)/app/src/main/res/layout/cell_device.xml" value="0.22" />
+        <entry key="..\:/Users/Admin/Downloads/ApkPrueba (1)/app/src/main/res/layout/cell_item.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/Downloads/ApkPrueba (1)/app/src/main/res/layout/cell_photo.xml" value="0.22" />
         <entry key="..\:/Users/Admin/Downloads/ApkPrueba (1)/app/src/main/res/layout/fragment_main.xml" value="0.10144927536231885" />
       </map>
     </option>

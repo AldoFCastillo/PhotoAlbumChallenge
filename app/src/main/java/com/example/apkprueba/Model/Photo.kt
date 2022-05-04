@@ -2,12 +2,11 @@ package com.example.apkprueba.Model
 
 import com.google.gson.annotations.SerializedName
 
-data class DeviceDetails(
-    @SerializedName("id") val id : String?,
-    @SerializedName("brand") val brand : String?,
-    @SerializedName("name") val name : String?,
-    @SerializedName("legal") val legal : String?,
-    @SerializedName("images") val images : List<Images>?,
-    @SerializedName("mainImage") val mainImage : MainImage?
-) {
+data class Photo(
+    @SerializedName("id") val id : Int?,
+    @SerializedName("albumId") val albumId : Int?,
+    @SerializedName("title") val title : String?,
+    @SerializedName("url") val url : String?,
+    @SerializedName("thumbnailUrl") val thumbnailUrl : String?
+    ) {
 }

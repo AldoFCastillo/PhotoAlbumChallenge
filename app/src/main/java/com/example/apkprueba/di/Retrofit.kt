@@ -41,7 +41,7 @@ fun provideGson(): GsonConverterFactory {
 
 fun provideRetrofit(gsonConverterFactory: GsonConverterFactory, client: OkHttpClient): WebService {
     return Retrofit.Builder()
-            .baseUrl("https://61967289af46280017e7e0c0.mockapi.io")//preferences.url)
+            .baseUrl("https://jsonplaceholder.typicode.com/")
             .client(client)
             .addConverterFactory(gsonConverterFactory)
             .build()
