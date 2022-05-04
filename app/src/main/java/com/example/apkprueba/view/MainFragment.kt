@@ -7,6 +7,8 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import androidx.fragment.app.Fragment
 import com.example.apkprueba.R
 import androidx.recyclerview.widget.GridLayoutManager
@@ -41,11 +43,14 @@ class MainFragment : Fragment(R.layout.fragment_main), MainRecyclerViewAdapter.D
         binding.apply {
             recyclerView.apply {
                 adapter = mainAdapter
-                layoutManager = GridLayoutManager(context, 1)
+                layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
                 addItemDecoration(RecyclerItemDecorator(20, 20, 20, 20))
                 setHasFixedSize(true)
+                scheduleLayoutAnimation()
             }
         }
+
+
         setListener()
         viewModel.requestDevices()
     }
