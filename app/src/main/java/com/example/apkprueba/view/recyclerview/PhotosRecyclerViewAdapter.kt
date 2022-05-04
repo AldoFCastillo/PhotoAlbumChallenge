@@ -5,21 +5,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.apkprueba.Model.Photo
 import com.example.apkprueba.R
-import com.example.apkprueba.databinding.CellDetailsBinding
-import com.example.apkprueba.databinding.CellDeviceBinding
+import com.example.apkprueba.databinding.CellPhotoBinding
 
 class DetailsRecyclerViewAdapter:
     RecyclerView.Adapter<DetailsRecyclerViewAdapter.DetailsViewHolder>() {
 
-    private var urlList: List<String>? = null
+    private var photoList: List<Photo>? = null
 
 
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
     ): DetailsViewHolder {
-        val binding = CellDetailsBinding.inflate(LayoutInflater.from(viewGroup.context))
+        val binding = CellPhotoBinding.inflate(LayoutInflater.from(viewGroup.context))
         return DetailsViewHolder(binding)
     }
 
@@ -27,30 +27,31 @@ class DetailsRecyclerViewAdapter:
 
     override fun getItemId(position: Int) = position.toLong()
 
-    override fun getItemCount() = urlList?.size ?: 0
+    override fun getItemCount() = photoList?.size ?: 0
 
     override fun onBindViewHolder(
         detailsViewHolder: DetailsViewHolder,
         position: Int
     ) {
-        urlList?.let {
+        photoList?.let {
             detailsViewHolder.bindView(it[position])
         }
     }
 
-    fun update(urls: List<String>) {
-        urlList = urls
+    fun update(photos: List<Photo>) {
+        photoList = photos
         notifyDataSetChanged()
     }
 
-    class DetailsViewHolder(private val binding: CellDetailsBinding) :
+    class DetailsViewHolder(private val binding: CellPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindView(url: String) {
+        fun bindView(photo: Photo) {
+
             with(binding){
                 Glide.with(itemView.context)
-                    .load(url)
-                    .into(image)
+                    .load(photo.url)
+                    .into(imageViewThumbnail)
             }
 
         }
