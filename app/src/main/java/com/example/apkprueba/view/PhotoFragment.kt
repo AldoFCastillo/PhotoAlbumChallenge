@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -37,12 +38,13 @@ class PhotoFragment: Fragment(R.layout.fragment_main) {
             recyclerView.apply {
                 adapter = photoAdapter
                 layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
-                addItemDecoration(RecyclerItemDecorator(20, 20, 20, 20))
+                addItemDecoration(RecyclerItemDecorator(20, 0, 20, 0))
                 setHasFixedSize(true)
                 scheduleLayoutAnimation()
-                (layoutParams as ConstraintLayout.LayoutParams).matchConstraintPercentWidth = 0.9F
+                (layoutParams as ConstraintLayout.LayoutParams).matchConstraintPercentWidth = 1F
                 requestLayout()
             }
+            searchView.visibility = GONE
         }
         setListener()
         viewModel.getSelectedAlbumId()?.let { viewModel.requestAlbumPhotos(it) }

@@ -8,6 +8,8 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
@@ -24,7 +26,6 @@ class MainFragment : Fragment(R.layout.fragment_main), MainRecyclerViewAdapter.D
     private val binding get() = mainView!!
     private lateinit var mainAdapter: MainRecyclerViewAdapter
     private var mainView: FragmentMainBinding? = null
-    private lateinit var selectedItemId: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,10 +47,29 @@ class MainFragment : Fragment(R.layout.fragment_main), MainRecyclerViewAdapter.D
                 setHasFixedSize(true)
                 scheduleLayoutAnimation()
             }
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (mainAdapter.getList()?.any{it.title!!.contains(query!!)} == true) {
+                        mainAdapter.filter.filter(query)
+                    } else {
+                        Toast.makeText(context, "No Match found", Toast.LENGTH_LONG).show()
+                    }
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    mainAdapter.filter.filter(newText)
+                    return false
+                }
+
+            })
+
         }
         setListener()
         viewModel.requestAlbums()
     }
+
+
 
     private fun setListener() {
         viewModel.albumsRequestResponse.observe(viewLifecycleOwner, {

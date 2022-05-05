@@ -29,10 +29,23 @@ class MainActivity : AppCompatActivity() {
             modules(listOf(appModule, retrofitModule))
         }
 
+        showMainFragment()
+    }
+
+    private fun showMainFragment(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, MainFragment::class.java, null)
             .commit()
     }
 
+    override fun onBackPressed() {
+        val isPhotoFragment = supportFragmentManager.fragments.any { it is PhotoFragment }
+        if (isPhotoFragment) {
+            showMainFragment()
+        } else {
+            super.onBackPressed()
+        }
+
+    }
 
 }

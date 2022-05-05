@@ -2,8 +2,11 @@ package com.example.apkprueba.view.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.example.apkprueba.Model.Photo
 import com.example.apkprueba.databinding.CellPhotoBinding
 
@@ -46,11 +49,17 @@ class PhotosRecyclerViewAdapter:
 
         fun bindView(photo: Photo) {
 
+            val url = GlideUrl(
+                photo.url, LazyHeaders.Builder()
+                    .addHeader("User-Agent", WebSettings.getDefaultUserAgent(itemView.context))
+                    .build()
+            )
+
             with(binding){
                 cellTextViewName.text = photo.id.toString()
-                cellTextViewDescription.text = photo.title
+                cellTextViewDescription.text = photo.title?.uppercase()
                 Glide.with(itemView.context)
-                    .load(photo.url)
+                    .load(url)
                     .into(imageViewThumbnail)
             }
 
